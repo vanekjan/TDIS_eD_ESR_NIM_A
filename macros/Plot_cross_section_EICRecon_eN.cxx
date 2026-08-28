@@ -32,15 +32,9 @@ const double M_D = 1.875612945;//deuteron mass in GeV
 
 const float lumi_design_fb = 1.5; //expected lumi. in fb-1
 
-//paper luminosity: sigma_tot = 4.5e-5 mb
-//new BeAGLE production:
-//cross section from PYTHIA/BeAGLE log files
 
-//10x130 GeV
-const float sigma_BeAGLE = 3.538e-4; //mb (eN)
-const float sigma_BeAGLE_fb = 3.538e8; //fb (eN)
-
-void Plot_cross_section_EICRecon_eN(const int plot_RC_flag = 1, const int plot_ACC_flag = 1, TString inFileName = "Input")
+//energy_flag = 10130: 10x130 GeV, energy_flag = 9130: 9x130 GeV
+void Plot_cross_section_EICRecon_eN(const int plot_RC_flag = 1, const int plot_ACC_flag = 1, TString inFileName = "Input", const int energy_flag = 9130)
 {
   //check that we have input file to analyze
   if( !inFileName.Contains(".root") )
@@ -65,6 +59,48 @@ void Plot_cross_section_EICRecon_eN(const int plot_RC_flag = 1, const int plot_A
   //---------------------------------------------------------------
 
   TRandom *my_random = new TRandom();//check if we need to set a specific seed
+  
+  //---------------------------------------------------------------
+  //luminosity
+
+  float sigma_BeAGLE = 0;
+  float sigma_BeAGLE_fb = 0;
+
+  TString energy_text;
+
+  //Original paper luminosity: sigma_tot = 4.5e-5 mb
+  //new BeAGLE production:
+  //cross section from PYTHIA/BeAGLE log files
+  if(energy_flag == 9130)
+  {
+    //9x130 GeV
+    sigma_BeAGLE = 3.465e-4; //mb (eN)
+    sigma_BeAGLE_fb = 3.465e8; //fb (eN)
+
+    energy_text = "eD 9x130 GeV";
+
+  }
+  else if( energy_flag == 10130 )
+  {
+    //10x130 GeV
+    sigma_BeAGLE = 3.538e-4; //mb (eN)
+    sigma_BeAGLE_fb = 3.538e8; //fb (eN)
+
+    energy_text = "eD 10x130 GeV";
+  }
+  else
+  {
+    cout<<"Wrong collision energy. Available energies are: 9x130 GeV and 10x130 GeV."<<endl;
+    cout<<"Third macro parameters to set energies:"<<endl;
+    cout<<"9x130 GeV: 9130"<<endl;
+    cout<<"10x130 GeV: 10130"<<endl;
+
+    return;
+  }
+
+  //18x110 GeV
+  //const float sigma_BeAGLE = 3.869e-4; //mb (eN)
+
 
   //---------------------------------------------------------------
 
@@ -183,7 +219,7 @@ void Plot_cross_section_EICRecon_eN(const int plot_RC_flag = 1, const int plot_A
   text->SetTextFont(43);
   text->SetTextSize(30);
   text->AddText("ePIC simulation");
-  text->AddText("eD 10x130 GeV^{2}");
+  text->AddText(energy_text);
   text->AddText("#gamma* + d #rightarrow X + p'");
   text->AddText("Tagged proton");
   text->SetBorderSize(0);
@@ -852,7 +888,7 @@ void Plot_cross_section_EICRecon_eN(const int plot_RC_flag = 1, const int plot_A
     text_vs_x->SetTextFont(43);
     text_vs_x->SetTextSize(30);
     text_vs_x->AddText("ePIC simulation");
-    text_vs_x->AddText("eD 10x130 GeV^{2}");
+    text_vs_x->AddText(energy_text);
     text_vs_x->AddText("#gamma* + d #rightarrow X");
     text_vs_x->AddText("Inclusive");
     text_vs_x->SetBorderSize(0);
