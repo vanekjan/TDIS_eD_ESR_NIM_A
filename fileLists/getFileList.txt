@@ -1,0 +1,12 @@
+TDIS in e+D at 10x130 GeV (ESR paper):
+
+epic:/RECO/26.03.1/epic_craterlake/DIS/BeAGLE1.03.02-1.3/eH2/ep/10x130/q2_1to1000
+
+epic:/RECO/26.03.1/epic_craterlake/DIS/BeAGLE1.03.02-1.3/eH2/en/10x130/q2_1to1000
+
+
+TDIS in e+D at 9x130 GeV (ESR paper):
+
+epic:/RECO/26.07.1/epic_craterlake/DIS/BeAGLE1.03.02-3.1/eH2/ep/9x130/q2_1to1000
+
+epic:/RECO/26.07.1/epic_craterlake/DIS/BeAGLE1.03.02-3.1/eH2/en/9x130/q2_1to1000
